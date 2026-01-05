@@ -19,60 +19,19 @@ body {
     background-color: #222;
     color: var(--text-color);
     overflow: hidden;
-    height: 100vh;
+    height: 100dvh;
     display: flex;
     justify-content: center;
     align-items: center;
     touch-action: manipulation;
 }
 
-/* 横画面推奨の警告オーバーレイ */
-#rotate-notice {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: #ff99cc;
-    color: white;
-    z-index: 9999;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 20px;
-}
-
-#rotate-notice .icon {
-    font-size: 4rem;
-    margin-bottom: 20px;
-    animation: rotate-anim 2s infinite;
-}
-
-@keyframes rotate-anim {
-
-    0%,
-    100% {
-        transform: rotate(0deg);
-    }
-
-    50% {
-        transform: rotate(-90deg);
-    }
-}
-
-/* 縦画面（または縦長）の時に警告を出す */
-@media screen and (orientation: portrait) {
-    #rotate-notice {
-        display: flex;
-    }
-}
-
 #game-container {
     position: relative;
     width: 100vw;
-    height: 100vh;
-    max-width: 1000px;
-    max-height: 562.5px;
-    aspect-ratio: 16 / 9;
+    height: 100dvh;
+    max-width: 500px;
+    /* PCでもスマホっぽさを維持 */
     background-color: var(--bg-color);
     overflow: hidden;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
@@ -91,7 +50,8 @@ body {
     width: 50%;
     height: 100%;
     background-size: cover;
-    background-position: center;
+    background-position: center bottom;
+    /* 下部基準 */
 }
 
 #room-bg {
@@ -113,11 +73,13 @@ body {
 
 #character-wrapper {
     position: absolute;
-    bottom: 10%;
+    bottom: 22%;
+    /* ボタンより上に十分なスペースを確保 */
     left: 50%;
     transform: translateX(-50%);
-    width: 30%;
-    height: 60%;
+    width: 80%;
+    /* キャラクターを大きく */
+    height: 45%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -131,13 +93,12 @@ body {
     background-repeat: no-repeat;
     background-position: center bottom;
     transition: transform 0.2s, background-image 0.2s;
-    background-image: url('assets/normal.png');
 }
 
 /* テキストバブル */
 #text-overlay {
     position: absolute;
-    top: 10%;
+    top: 12dvh;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -147,11 +108,11 @@ body {
 
 #message-bubble {
     background: white;
-    padding: 2% 4%;
-    border-radius: 20px;
+    padding: 15px 20px;
+    border-radius: 25px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     border: 3px solid var(--primary-color);
-    max-width: 80%;
+    width: 85%;
     opacity: 0;
     transform: translateY(10px);
     transition: all 0.2s;
@@ -163,22 +124,22 @@ body {
 }
 
 #message-text {
-    font-size: clamp(0.9rem, 3vw, 1.2rem);
+    font-size: 1.1rem;
     font-weight: bold;
     text-align: center;
 }
 
-/* UI */
+/* UI層 */
 .overlay-screen {
     position: absolute;
     inset: 0;
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(255, 255, 255, 0.98);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     z-index: 100;
-    padding: 20px;
+    padding: 30px;
     text-align: center;
 }
 
@@ -188,26 +149,35 @@ body {
 
 h1 {
     color: var(--primary-color);
-    font-size: clamp(1.2rem, 5vw, 2rem);
-    margin-bottom: 2%;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    line-height: 1.2;
 }
 
 #difficulty-selection {
-    margin: 2% 0;
+    margin: 20px 0;
     width: 100%;
 }
 
 .difficulty-buttons {
     display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 1%;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
 }
 
 .diff-btn {
-    padding: 8px 16px !important;
-    font-size: 1rem !important;
+    width: 100%;
+    max-width: 200px;
+    padding: 12px 20px !important;
+    font-size: 1.1rem !important;
+    background: white;
+    border: 3px solid var(--primary-color);
+    color: var(--primary-color);
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: bold;
 }
 
 #start-button,
@@ -215,62 +185,55 @@ h1 {
     background: var(--primary-color);
     color: white;
     border: none;
-    padding: 12px 30px;
-    font-size: 1.2rem;
+    padding: 15px 40px;
+    font-size: 1.3rem;
     font-family: inherit;
     border-radius: 50px;
     cursor: pointer;
-    margin-top: 2%;
+    margin-top: 20px;
     box-shadow: 0 4px 0 #cc7aa3;
-    transition: transform 0.1s;
+    font-weight: bold;
 }
 
 button:active {
-    transform: translateY(4px);
-    box-shadow: none;
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #cc7aa3;
 }
 
 #game-hud {
     position: absolute;
-    top: 5%;
-    left: 2%;
-    right: 2%;
+    top: 5dvh;
+    left: 20px;
+    right: 20px;
     display: flex;
     justify-content: space-between;
     z-index: 80;
     font-weight: bold;
     color: var(--primary-color);
-    background: rgba(255, 255, 255, 0.7);
-    padding: 5px 15px;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 8px 15px;
     border-radius: 20px;
     pointer-events: none;
-    font-size: 0.9rem;
+    font-size: 1rem;
 }
 
-#result-character {
-    width: 30%;
-    height: 40%;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center bottom;
-    margin-bottom: 2%;
-}
-
+/* 操作パネル */
 #input-controls {
     position: absolute;
-    bottom: 5%;
+    bottom: 8dvh;
+    /* ブラウザのナビゲーションバーを避けるために少し上げる */
     width: 100%;
     display: flex;
     justify-content: center;
-    gap: 15%;
+    gap: 40px;
     padding: 0 20px;
     z-index: 150;
 }
 
 .control-btn {
-    width: clamp(60px, 12vh, 80px);
-    height: clamp(60px, 12vh, 80px);
-    font-size: clamp(1.5rem, 4vh, 2.5rem);
+    width: 85px;
+    height: 85px;
+    font-size: 2.8rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -288,10 +251,20 @@ button:active {
     box-shadow: 0 2px 0 var(--primary-color);
 }
 
+#result-character {
+    width: 70%;
+    height: 40%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    margin-bottom: 20px;
+}
+
 .instructions {
-    margin-top: 2%;
-    font-size: 0.8rem;
+    margin-top: 20px;
+    font-size: 0.9rem;
     color: #666;
+    line-height: 1.4;
 }
 
 /* アニメーション */
@@ -328,11 +301,5 @@ button:active {
 
     75% {
         transform: translateX(10px);
-    }
-}
-
-@media (min-width: 769px) {
-    #input-controls {
-        display: none;
     }
 }
