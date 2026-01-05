@@ -28,14 +28,84 @@ body {
 
 #game-container {
     position: relative;
-    width: 100vw;
-    height: 100dvh;
-    max-width: 500px;
-    /* PCでもスマホっぽさを維持 */
     background-color: var(--bg-color);
     overflow: hidden;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+/* --- レイアウト定義 (PC/横画面) --- */
+@media (min-width: 769px) {
+    #game-container {
+        width: 100vw;
+        height: 100vh;
+        max-width: 1000px;
+        max-height: 562.5px;
+        aspect-ratio: 16 / 9;
+        border-radius: 12px;
+    }
+
+    #character-wrapper {
+        position: absolute;
+        bottom: 8dvh;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 35dvh;
+        /* PCでは少し大きめに表示 */
+        height: 50dvh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: left 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    #message-bubble {
+        max-width: 60%;
+        top: 8dvh;
+        padding: 15px 30px;
+    }
+
+    #input-controls {
+        bottom: 5dvh;
+        gap: 80px;
+    }
+}
+
+/* --- レイアウト定義 (モバイル/縦画面) --- */
+@media (max-width: 768px) {
+    #game-container {
+        width: 100vw;
+        height: 100dvh;
+    }
+
+    #character-wrapper {
+        position: absolute;
+        bottom: 22%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80%;
+        height: 45%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: left 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    #message-bubble {
+        width: 85%;
+        top: 15dvh;
+        padding: 15px 25px;
+    }
+
+    #input-controls {
+        bottom: 8dvh;
+        gap: 40px;
+    }
+}
+
+/* --- 共通コンポーネント --- */
 
 /* 背景 */
 #background-layers {
@@ -51,7 +121,6 @@ body {
     height: 100%;
     background-size: cover;
     background-position: center bottom;
-    /* 下部基準 */
 }
 
 #room-bg {
@@ -65,25 +134,7 @@ body {
 /* ゲームステージ */
 #game-stage {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-#character-wrapper {
-    position: absolute;
-    bottom: 22%;
-    /* ボタンより上に十分なスペースを確保 */
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80%;
-    /* キャラクターを大きく */
-    height: 45%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: left 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    inset: 0;
 }
 
 #character {
@@ -93,13 +144,14 @@ body {
     background-repeat: no-repeat;
     background-position: center bottom;
     transition: transform 0.2s, background-image 0.2s;
+    background-image: url('assets/normal.png');
+    /* 初期画像 */
 }
 
 /* テキストバブル */
 #text-overlay {
     position: absolute;
-    top: 12dvh;
-    width: 100%;
+    inset: 0;
     display: flex;
     justify-content: center;
     pointer-events: none;
@@ -107,12 +159,11 @@ body {
 }
 
 #message-bubble {
+    position: absolute;
     background: white;
-    padding: 15px 20px;
     border-radius: 25px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     border: 3px solid var(--primary-color);
-    width: 85%;
     opacity: 0;
     transform: translateY(10px);
     transition: all 0.2s;
@@ -154,11 +205,6 @@ h1 {
     line-height: 1.2;
 }
 
-#difficulty-selection {
-    margin: 20px 0;
-    width: 100%;
-}
-
 .difficulty-buttons {
     display: flex;
     flex-direction: column;
@@ -167,9 +213,8 @@ h1 {
 }
 
 .diff-btn {
-    width: 100%;
-    max-width: 200px;
-    padding: 12px 20px !important;
+    width: 200px;
+    padding: 12px !important;
     font-size: 1.1rem !important;
     background: white;
     border: 3px solid var(--primary-color);
@@ -220,13 +265,9 @@ button:active {
 /* 操作パネル */
 #input-controls {
     position: absolute;
-    bottom: 8dvh;
-    /* ブラウザのナビゲーションバーを避けるために少し上げる */
     width: 100%;
     display: flex;
     justify-content: center;
-    gap: 40px;
-    padding: 0 20px;
     z-index: 150;
 }
 
@@ -252,8 +293,8 @@ button:active {
 }
 
 #result-character {
-    width: 70%;
-    height: 40%;
+    width: 200px;
+    height: 250px;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center bottom;
