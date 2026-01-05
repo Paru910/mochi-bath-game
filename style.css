@@ -11,6 +11,7 @@
     margin: 0;
     padding: 0;
     -webkit-tap-highlight-color: transparent;
+    user-select: none;
 }
 
 body {
@@ -22,18 +23,59 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    touch-action: manipulation;
+}
+
+/* 横画面推奨の警告オーバーレイ */
+#rotate-notice {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: #ff99cc;
+    color: white;
+    z-index: 9999;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+#rotate-notice .icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    animation: rotate-anim 2s infinite;
+}
+
+@keyframes rotate-anim {
+
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    50% {
+        transform: rotate(-90deg);
+    }
+}
+
+/* 縦画面（または縦長）の時に警告を出す */
+@media screen and (orientation: portrait) {
+    #rotate-notice {
+        display: flex;
+    }
 }
 
 #game-container {
     position: relative;
-    width: 100%;
-    max-width: 800px;
-    height: 100%;
-    max-height: 500px;
+    width: 100vw;
+    height: 100vh;
+    max-width: 1000px;
+    max-height: 562.5px;
+    aspect-ratio: 16 / 9;
     background-color: var(--bg-color);
     overflow: hidden;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-    border-radius: 12px;
 }
 
 /* 背景 */
@@ -71,11 +113,11 @@ body {
 
 #character-wrapper {
     position: absolute;
-    bottom: 50px;
+    bottom: 10%;
     left: 50%;
     transform: translateX(-50%);
-    width: 250px;
-    height: 300px;
+    width: 30%;
+    height: 60%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -95,7 +137,7 @@ body {
 /* テキストバブル */
 #text-overlay {
     position: absolute;
-    top: 40px;
+    top: 10%;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -105,7 +147,7 @@ body {
 
 #message-bubble {
     background: white;
-    padding: 12px 20px;
+    padding: 2% 4%;
     border-radius: 20px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     border: 3px solid var(--primary-color);
@@ -121,7 +163,7 @@ body {
 }
 
 #message-text {
-    font-size: 1.1rem;
+    font-size: clamp(0.9rem, 3vw, 1.2rem);
     font-weight: bold;
     text-align: center;
 }
@@ -146,12 +188,12 @@ body {
 
 h1 {
     color: var(--primary-color);
-    font-size: 2rem;
-    margin-bottom: 20px;
+    font-size: clamp(1.2rem, 5vw, 2rem);
+    margin-bottom: 2%;
 }
 
 #difficulty-selection {
-    margin: 20px 0;
+    margin: 2% 0;
     width: 100%;
 }
 
@@ -159,14 +201,13 @@ h1 {
     display: flex;
     justify-content: center;
     gap: 10px;
-    margin-top: 10px;
+    margin-top: 1%;
     flex-wrap: wrap;
 }
 
 .diff-btn {
-    margin-top: 5px !important;
-    padding: 10px 20px !important;
-    font-size: 1.1rem !important;
+    padding: 8px 16px !important;
+    font-size: 1rem !important;
 }
 
 #start-button,
@@ -174,12 +215,12 @@ h1 {
     background: var(--primary-color);
     color: white;
     border: none;
-    padding: 15px 40px;
-    font-size: 1.4rem;
+    padding: 12px 30px;
+    font-size: 1.2rem;
     font-family: inherit;
     border-radius: 50px;
     cursor: pointer;
-    margin-top: 20px;
+    margin-top: 2%;
     box-shadow: 0 4px 0 #cc7aa3;
     transition: transform 0.1s;
 }
@@ -191,9 +232,9 @@ button:active {
 
 #game-hud {
     position: absolute;
-    top: 10px;
-    left: 10px;
-    right: 10px;
+    top: 5%;
+    left: 2%;
+    right: 2%;
     display: flex;
     justify-content: space-between;
     z-index: 80;
@@ -203,32 +244,33 @@ button:active {
     padding: 5px 15px;
     border-radius: 20px;
     pointer-events: none;
+    font-size: 0.9rem;
 }
 
 #result-character {
-    width: 200px;
-    height: 250px;
+    width: 30%;
+    height: 40%;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center bottom;
-    margin-bottom: 15px;
+    margin-bottom: 2%;
 }
 
 #input-controls {
     position: absolute;
-    bottom: 30px;
+    bottom: 5%;
     width: 100%;
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 15%;
     padding: 0 20px;
     z-index: 150;
 }
 
 .control-btn {
-    width: 80px;
-    height: 80px;
-    font-size: 2.5rem;
+    width: clamp(60px, 12vh, 80px);
+    height: clamp(60px, 12vh, 80px);
+    font-size: clamp(1.5rem, 4vh, 2.5rem);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -247,8 +289,8 @@ button:active {
 }
 
 .instructions {
-    margin-top: 20px;
-    font-size: 0.9rem;
+    margin-top: 2%;
+    font-size: 0.8rem;
     color: #666;
 }
 
