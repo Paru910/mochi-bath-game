@@ -272,11 +272,9 @@ class Game {
         const isPositiveTurn = Math.random() < 0.5;
 
         if (isPositiveTurn) {
-            // 次の成功でお風呂（MAX）に届く場合のみ commit
-            category = (this.position + CONFIG.MOVEMENT_SUCCESS >= CONFIG.POSITION.MAX) ? 'commit' : 'positive';
+            category = (this.position > 60) ? 'commit' : 'positive';
         } else {
-            // 次の失敗でゲームオーバー（MIN）に届く場合のみ warning
-            category = (this.position + diffConfig.MOVEMENT_BAD <= CONFIG.POSITION.MIN) ? 'warning' : 'negative';
+            category = (this.position < -60) ? 'warning' : 'negative';
         }
 
         const bank = TEXT_BANK[category];
