@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>もち風呂入れミニゲーム</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div id="game-container">
+        <!-- 背景レイアウト -->
+        <div id="background-layers">
+            <div id="room-bg" class="bg-layer"></div>
+            <div id="bath-bg" class="bg-layer"></div>
+        </div>
+
+        <!-- メインゲームエリア -->
+        <div id="game-stage">
+            <!-- キャラクター -->
+            <div id="character-wrapper">
+                <div id="character" class="expression-normal"></div>
+                <!-- 感情アイコン演出用 -->
+                <div id="emotion-effect"></div>
+            </div>
+
+            <!-- テキストオーバーレイ -->
+            <div id="text-overlay">
+                <div id="message-bubble">
+                    <p id="message-text"></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- UI -->
+        <div id="ui-layer">
+            <div id="start-screen" class="overlay-screen active">
+                <h1>鏡矢おもち風呂キャンゲーム</h1>
+                <p>もちの風呂キャンを阻止しよう</p>
+
+                <div id="difficulty-selection">
+                    <p>難易度を選んでね：</p>
+                    <div class="difficulty-buttons">
+                        <button class="diff-btn" data-diff="EASY">かんたん</button>
+                        <button class="diff-btn" data-diff="NORMAL">ふつう</button>
+                        <button class="diff-btn" data-diff="HARD">むずかしい</button>
+                    </div>
+                </div>
+
+                <div class="instructions">
+                    <p>否定 = Jキー / 肯定 = Kキー</p>
+                    <p>リスナーとしてもちの気持ちに寄り添おう</p>
+                </div>
+            </div>
+
+            <div id="game-hud" class="hidden">
+                <div id="time-display">00:00</div>
+                <div id="difficulty-display">ふつう</div>
+            </div>
+
+            <div id="input-controls">
+                <button id="btn-down" class="control-btn">👎</button>
+                <button id="btn-up" class="control-btn">👍</button>
+            </div>
+
+            <div id="result-screen" class="overlay-screen hidden">
+                <h2 id="result-title">結果発表</h2>
+                <div id="result-character"></div>
+                <p id="result-text"></p>
+                <button id="restart-button">タイトルへ戻る</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="game.js"></script>
+</body>
+
+</html>

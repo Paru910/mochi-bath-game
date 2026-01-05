@@ -1,0 +1,7 @@
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Source images/temp files
+素材画像/
+*.log
